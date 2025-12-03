@@ -60,7 +60,7 @@ class ChangeTextTest {
     @Test
     fun testSetEmptyText() {
 
-        val textEmpty = "Привет, UiAutomator!"
+        val textEmpty = "Hello UiAutomator!"
         device.findObject(By.res(packageName, "userInput")).text = "   "
         device.findObject(By.res(packageName, "buttonChange")).click()
 
