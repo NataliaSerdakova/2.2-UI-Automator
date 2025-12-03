@@ -60,16 +60,15 @@ class ChangeTextTest {
     @Test
     fun testSetEmptyText() {
 
-        val initialText = device.findObject(By.res(packageName, "textToBeChanged")).text
-
+        val textEmpty = "Привет, UiAutomator!"
         device.findObject(By.res(packageName, "userInput")).text = "   "
         device.findObject(By.res(packageName, "buttonChange")).click()
 
         val finalResultText = device.findObject(By.res(packageName, "textToBeChanged")).text
 
-        assertEquals(finalResultText, initialText)
+        assertEquals(finalResultText, textEmpty)
     }
-    
+
     @Test
     fun testAnotherActivity() {
 
