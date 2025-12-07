@@ -25,6 +25,7 @@ class ChangeTextTest {
     private lateinit var device: UiDevice
     private val textToSet = "Netology"
     val packageName = MODEL_PACKAGE
+    private val timeout = 5000L
 
     private fun waitForPackage(packageName: String) {
         val context = ApplicationProvider.getApplicationContext<Context>()
@@ -50,40 +51,38 @@ class ChangeTextTest {
     @Test
     fun testChangeText() {
 
-        device.findObject(By.res(packageName, "userInput")).text = textToSet
-        device.findObject(By.res(packageName, "buttonChange")).click()
+        device.wait(Until.findObject(By.res(packageName, "userInput")), timeout)?.text = textToSet
+        device.wait(Until.findObject(By.res(packageName, "buttonChange")), timeout)?.click()
 
-        val result = device.findObject(By.res(packageName, "textToBeChanged")).text
+        val result = device.wait(Until.findObject(By.res(packageName, "textToBeChanged")), timeout)?.text
         assertEquals(result, textToSet)
     }
 
     @Test
     fun testSetEmptyText() {
-
         val textEmpty = "Hello UiAutomator!"
-        device.findObject(By.res(packageName, "userInput")).text = "   "
-        device.findObject(By.res(packageName, "buttonChange")).click()
 
-        val finalResultText = device.findObject(By.res(packageName, "textToBeChanged")).text
+        device.wait(Until.findObject(By.res(packageName, "userInput")), timeout)?.text = "   "
+        device.wait(Until.findObject(By.res(packageName, "buttonChange")), timeout)?.click()
+
+        val finalResultText = device.wait(Until.findObject(By.res(packageName, "textToBeChanged")), timeout)?.text
 
         assertEquals(finalResultText, textEmpty)
     }
 
+
     @Test
     fun testAnotherActivity() {
-
         val textToVerify = "Hello, activity"
-        device.findObject(By.res(packageName, "userInput")).text = textToVerify
-        device.findObject(By.res(packageName, "buttonActivity")).click()
 
-        device.wait(Until.hasObject(By.res(packageName, "text")), TIMEOUT)
-
-        val result = device.findObject(By.res(packageName, "text")).text
+        device.wait(Until.findObject(By.res(packageName, "userInput")), timeout)?.text = textToVerify
+        device.wait(Until.findObject(By.res(packageName, "buttonActivity")), timeout)?.click()
+        
+        val result = device.wait(Until.findObject(By.res(packageName, "text")), TIMEOUT)?.text
 
         assertEquals(result, textToVerify)
     }
 }
-
 
 
 
